@@ -1,3 +1,4 @@
 interface IWelcomeEmail extends IEmail {
-    loginLink: string;
+  email: string;
+  loginLink: string;
 }

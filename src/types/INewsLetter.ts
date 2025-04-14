@@ -14,7 +14,7 @@ enum months {
 
 interface INewsLetter extends IEmail {
     month: months;
-    headline1: string;
-    content1: string;
+    headline: string;
+    content: string;
     unsubscribeLink: string;
 }
