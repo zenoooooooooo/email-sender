@@ -1,4 +1,4 @@
 interface IEmail {
-    recipients: string[];
+    recipients: string;
     name: string;
 }
