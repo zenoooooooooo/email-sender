@@ -1,16 +1,15 @@
 import nodemailer from "nodemailer";
-import { render } from "@react-email/components";
-import NewsLetter from "@/app/components/templates/NewsLetter";
+import { render } from "@react-email/render";
+import PasswordReset from "@/app/components/templates/PasswordReset";
 
-async function sendNewsLetter(data: INewsLetter) {
+async function sendPasswordReset(data: IPasswordReset) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
     const SMTP_HOST = process.env.SMTP_HOST;
-    const SMTP_PORT = parseInt(process.env.SMTP_PORT || "465", 10);
+    const SMTP_PORT = parseInt(process.env.SMTP_PORT || "587", 10);
 
-    const { recipients, name, month, headline, content, unsubscribeLink, author } =
-      data;
+    const { recipients, name, resetLink } = data;
 
     if (!SMTP_USER || !SMTP_PASSWORD || !SMTP_HOST || !SMTP_PORT) {
       return {
@@ -22,14 +21,7 @@ async function sendNewsLetter(data: INewsLetter) {
       };
     }
 
-    const newsLetter = NewsLetter({
-      name,
-      month,
-      headline,
-      content,
-      unsubscribeLink,
-      author
-    });
+    const passwordReset = PasswordReset({ name, resetLink });
 
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
@@ -41,31 +33,28 @@ async function sendNewsLetter(data: INewsLetter) {
       },
     });
 
-    const newsLetterHtml = await render(newsLetter);
+    const passwordResetHtml = await render(passwordReset);
 
     const mailOptions = {
-      from: `"Email Sender" <${SMTP_HOST}>`,
+      from: `"Email Sender" <${SMTP_USER}>`,
       to: recipients.join(", "),
-      subject: `Monthly Newsletter - ${month}`,
-      html: newsLetterHtml,
+      subject: "Password Reset Request",
+      html: passwordResetHtml,
     };
 
     await transporter.sendMail(mailOptions);
 
     return {
-      message: "Email sent successfully!",
+      message: "Password reset email sent successfully!",
       status: 200,
     };
   } catch (error) {
     console.error(error);
     return {
-      response: {
-        success: false,
-        message: "Error sending email",
-      },
+      message: "Internal Server Error",
       status: 500,
     };
   }
 }
 
-export default sendNewsLetter;
+export default sendPasswordReset;

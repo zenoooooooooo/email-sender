@@ -102,11 +102,11 @@ export default function InterviewInvitation({
             </div>
 
             <Text className="text-sm text-grayLight">
-              If you have any questions, feel free to contact us at
+              If you have any questions, feel free to contact us at{" "}
               <a href={`mailto:${contactEmail}`} className="text-brand">
                 {contactEmail}
               </a>
-              or call us at
+              or call us at{" "}
               <a href={`tel:${contactPhone}`} className="text-brand">
                 {contactPhone}
               </a>
