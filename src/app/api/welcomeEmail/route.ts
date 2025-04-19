@@ -8,9 +8,7 @@ export async function POST(req: NextRequest) {
 
     const data: IWelcomeEmail = await req.json();
 
-    const response = await sendWelcomeEmail(
-      data
-    );
+    const response = await sendWelcomeEmail(data);
 
     return NextResponse.json(
       { message: response.message },

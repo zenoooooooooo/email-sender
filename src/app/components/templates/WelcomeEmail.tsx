@@ -8,17 +8,11 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-interface WelcomeEmailProps {
-  name: string;
-  loginLink: string;
-  email: string;
-}
-
 export default function WelcomeEmail({
   name,
   loginLink,
   email,
-}: WelcomeEmailProps) {
+}: Omit<IWelcomeEmail, "recipients">) {
   return (
     <Html>
       <Tailwind
@@ -45,13 +39,13 @@ export default function WelcomeEmail({
             </h1>
 
             <Text className="text-grayLight mb-4">
-              We're thrilled to have you onboard. You've signed up using
+              We&apos;re thrilled to have you onboard. You&apos;ve signed up using
               <strong> {email}</strong>.
             </Text>
 
             <Text className="text-grayLight mb-6">
               To get started, simply click the button below to log in to your
-              account. We're here to help you make the most of your experience.
+              account. We&apos;re here to help you make the most of your experience.
             </Text>
 
             <div className="text-center mb-6">
@@ -64,7 +58,7 @@ export default function WelcomeEmail({
             </div>
 
             <Text className="text-xs text-gray-400">
-              If you didn’t create an account, you can safely ignore this email.
+              If you didn&apos;t create an account, you can safely ignore this email.
             </Text>
           </Container>
         </Section>

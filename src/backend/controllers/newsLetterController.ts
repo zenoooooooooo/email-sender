@@ -1,14 +1,14 @@
-import { render } from "@react-email/components";
 import nodemailer from "nodemailer";
-import WelcomeEmail from "@/app/components/templates/WelcomeEmail";
-async function sendWelcomeEmail(data: IWelcomeEmail) {
+import { render } from "@react-email/components";
+
+async function sendNewsLetter(data: INewsLetter) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
     const SMTP_HOST = process.env.SMTP_HOST;
     const SMTP_PORT = parseInt(process.env.SMTP_PORT || "465", 10);
 
-    const { recipients, name, email, loginLink } = data;
+    const { recipients, month, headline, content, unsubscribeLink } = data;
 
     if (!SMTP_USER || !SMTP_PASSWORD || !SMTP_HOST || !SMTP_PORT) {
       return {
@@ -20,7 +20,12 @@ async function sendWelcomeEmail(data: IWelcomeEmail) {
       };
     }
 
-    const welcomeEmail = WelcomeEmail({ name, email, loginLink });
+    const newsLetter = NewsLetter({
+      month,
+      headline,
+      content,
+      unsubscribeLink,
+    });
 
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
@@ -32,13 +37,13 @@ async function sendWelcomeEmail(data: IWelcomeEmail) {
       },
     });
 
-    const welcomeEmailHtml = await render(welcomeEmail);
+    const newsLetterHtml = await render(newsLetter);
 
     const mailOptions = {
       from: `"Email Sender" <${SMTP_HOST}>`,
       to: recipients.join(", "),
-      subject: "Welcome to our platform!",
-      html: welcomeEmailHtml,
+      subject: `Monthly Newsletter - ${month}`,
+      html: newsLetterHtml,
     };
 
     await transporter.sendMail(mailOptions);
@@ -48,12 +53,15 @@ async function sendWelcomeEmail(data: IWelcomeEmail) {
       status: 200,
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return {
-      message: "Internal Server Error",
+      response: {
+        success: false,
+        message: "Error sending email",
+      },
       status: 500,
     };
   }
 }
 
-export default sendWelcomeEmail;
+export default sendNewsLetter;
