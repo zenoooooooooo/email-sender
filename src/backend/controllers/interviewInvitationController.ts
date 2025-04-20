@@ -1,9 +1,11 @@
 import InterviewInvitation from "@/app/components/templates/InterviewInvitation";
 import { render } from "@react-email/components";
-import { STATES } from "mongoose";
 import nodemailer from "nodemailer";
+import { EmailHistory } from "@/backend/models";
 
-export default async function sendInterviewInvitation(data: IInterviewInvitation) {
+export default async function sendInterviewInvitation(
+  data: IInterviewInvitation
+) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -76,6 +78,29 @@ export default async function sendInterviewInvitation(data: IInterviewInvitation
 
     await transporter.sendMail(mailOptions);
 
+    const emailHistory = new EmailHistory({
+      type: "interviewInvitation",
+      recipients,
+      name,
+      payload: {
+        position,
+        company,
+        companyDescription,
+        interviewDate,
+        interviewTime,
+        interviewLocation,
+        interviewNotes,
+        contactMethod,
+        contactLink,
+        departmentName,
+        logoLink,
+        contactPhone,
+        contactEmail,
+      },
+    });
+
+    await emailHistory.save();
+
     return {
       message: "Email sent successfully",
       status: 200,
@@ -88,4 +113,3 @@ export default async function sendInterviewInvitation(data: IInterviewInvitation
     };
   }
 }
-

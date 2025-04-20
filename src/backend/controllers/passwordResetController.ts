@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import { render } from "@react-email/render";
 import PasswordReset from "@/app/components/templates/PasswordReset";
+import { EmailHistory } from "@/backend/models";
 
 export default async function sendPasswordReset(data: IPasswordReset) {
   try {
@@ -43,6 +44,17 @@ export default async function sendPasswordReset(data: IPasswordReset) {
     };
 
     await transporter.sendMail(mailOptions);
+
+    const emailHistory = new EmailHistory({
+      type: "passwordReset",
+      recipients,
+      name,
+      payload: {
+        resetLink,
+      },
+    });
+
+    await emailHistory.save();
 
     return {
       message: "Password reset email sent successfully!",

@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { render } from "@react-email/components";
 import NewsLetter from "@/app/components/templates/NewsLetter";
-
+import { EmailHistory } from "@/backend/models";
 export default async function sendNewsLetter(data: INewsLetter) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
@@ -9,8 +9,15 @@ export default async function sendNewsLetter(data: INewsLetter) {
     const SMTP_HOST = process.env.SMTP_HOST;
     const SMTP_PORT = parseInt(process.env.SMTP_PORT || "465", 10);
 
-    const { recipients, name, month, headline, content, unsubscribeLink, author } =
-      data;
+    const {
+      recipients,
+      name,
+      month,
+      headline,
+      content,
+      unsubscribeLink,
+      author,
+    } = data;
 
     if (!SMTP_USER || !SMTP_PASSWORD || !SMTP_HOST || !SMTP_PORT) {
       return {
@@ -28,7 +35,7 @@ export default async function sendNewsLetter(data: INewsLetter) {
       headline,
       content,
       unsubscribeLink,
-      author
+      author,
     });
 
     const transporter = nodemailer.createTransport({
@@ -52,6 +59,21 @@ export default async function sendNewsLetter(data: INewsLetter) {
 
     await transporter.sendMail(mailOptions);
 
+    const emailHistory = new EmailHistory({
+      type: "newsLetter",
+      recipients,
+      name,
+      payload: {
+        month,
+        headline,
+        content,
+        unsubscribeLink,
+        author,
+      },
+    });
+
+    await emailHistory.save();
+
     return {
       message: "Email sent successfully!",
       status: 200,
@@ -67,5 +89,3 @@ export default async function sendNewsLetter(data: INewsLetter) {
     };
   }
 }
-
-
