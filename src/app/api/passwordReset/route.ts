@@ -8,12 +8,9 @@ export async function POST(req: NextRequest) {
 
     const data: IPasswordReset = await req.json();
 
-    const response = await sendPasswordReset(data);
+    const { message, status } = await sendPasswordReset(data);
 
-    return NextResponse.json(
-      { message: response.message },
-      { status: response.status }
-    );
+    return NextResponse.json({ message }, { status });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: error }, { status: 500 });

@@ -15,7 +15,6 @@
     "bcrypt": "^5.1.1",
     "mongoose": "^8.13.2",
     "next": "15.3.0",
-    "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",

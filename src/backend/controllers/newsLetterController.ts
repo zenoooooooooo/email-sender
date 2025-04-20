@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import { render } from "@react-email/components";
 import NewsLetter from "@/app/components/templates/NewsLetter";
 
-async function sendNewsLetter(data: INewsLetter) {
+export default async function sendNewsLetter(data: INewsLetter) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -68,4 +68,4 @@ async function sendNewsLetter(data: INewsLetter) {
   }
 }
 
-export default sendNewsLetter;
+

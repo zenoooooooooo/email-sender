@@ -1,7 +1,8 @@
 import { render } from "@react-email/components";
 import nodemailer from "nodemailer";
 import WelcomeEmail from "@/app/components/templates/WelcomeEmail";
-async function sendWelcomeEmail(data: IWelcomeEmail) {
+
+export default async function sendWelcomeEmail(data: IWelcomeEmail) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -55,5 +56,3 @@ async function sendWelcomeEmail(data: IWelcomeEmail) {
     };
   }
 }
-
-export default sendWelcomeEmail;

@@ -3,7 +3,7 @@ import { render } from "@react-email/components";
 import { STATES } from "mongoose";
 import nodemailer from "nodemailer";
 
-async function sendInterviewInvitation(data: IInterviewInvitation) {
+export default async function sendInterviewInvitation(data: IInterviewInvitation) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -89,4 +89,3 @@ async function sendInterviewInvitation(data: IInterviewInvitation) {
   }
 }
 
-export default sendInterviewInvitation;

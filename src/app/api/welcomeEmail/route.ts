@@ -8,12 +8,9 @@ export async function POST(req: NextRequest) {
 
     const data: IWelcomeEmail = await req.json();
 
-    const response = await sendWelcomeEmail(data);
+    const { message, status } = await sendWelcomeEmail(data);
 
-    return NextResponse.json(
-      { message: response.message },
-      { status: response.status }
-    );
+    return NextResponse.json({ message }, { status });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: error }, { status: 500 });
