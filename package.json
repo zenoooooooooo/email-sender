@@ -12,8 +12,10 @@
   "dependencies": {
     "@react-email/components": "0.0.36",
     "@react-email/tailwind": "1.0.4",
+    "bcrypt": "^5.1.1",
     "mongoose": "^8.13.2",
     "next": "15.3.0",
+    "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
