@@ -57,7 +57,7 @@ export default async function sendPasswordReset(data: IPasswordReset) {
     await emailHistory.save();
 
     return {
-      message: "Password reset email sent successfully!",
+      message: "Email sent successfully!",
       status: 200,
     };
   } catch (error) {
