@@ -4,6 +4,7 @@ import { registerUser } from "@/backend/controllers";
 export async function POST(req: NextRequest) {
   try {
     connectToDatabase();
+
     const data: IUser = await req.json();
 
     const { message, status } = await registerUser(data);

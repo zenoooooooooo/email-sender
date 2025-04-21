@@ -10,6 +10,7 @@
     "email": "email dev --dir src/app/components/templates"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@react-email/components": "0.0.36",
     "@react-email/tailwind": "1.0.4",
     "bcrypt": "^5.1.1",
@@ -19,7 +20,9 @@
     "nodemailer": "^6.10.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "zod": "^3.24.2"
+    "react-hook-form": "^7.56.0",
+    "swr": "^2.3.3",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
