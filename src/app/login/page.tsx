@@ -48,42 +48,54 @@ const Login = () => {
   }
 
   return (
-    <main className="w-full min-h-[100vh] flex justify-center items-center bg-black">
+    <main className="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 p-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="border-2 rounded flex flex-col border-amber-50 bg-white w-[30vw] p-4"
+        className="w-full max-w-md border-2 rounded-lg border-amber-100 bg-white p-6 shadow-xl"
       >
-        <h1 className="m-2 font-bold text-2xl">Login Account</h1>
+        <h1 className="mb-4 font-bold text-2xl text-center text-gray-800">
+          Login Account
+        </h1>
+
         <input
           {...register("email", {
             required: "Email is required",
           })}
           type="email"
           placeholder="Email"
-          className="p-2 outline-none m-2 border-1 rounded"
+          className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
         />
         {errors.email && (
-          <span className="text-red-500 ml-2">{errors.email.message}</span>
+          <span className="text-red-500 text-sm mb-2 block">
+            {errors.email.message}
+          </span>
         )}
+
         <input
           {...register("password", {
             required: "Password is required",
           })}
           type="password"
           placeholder="Password"
-          className="p-2 outline-none m-2 border-1 rounded"
+          className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
         />
         {errors.password && (
-          <span className="text-red-500 ml-2">{errors.password.message}</span>
+          <span className="text-red-500 text-sm mb-2 block">
+            {errors.password.message}
+          </span>
         )}
-        <div className="m-2 flex justify-between items-center">
+
+        <div className="mt-4 flex justify-between items-center text-sm text-gray-700">
           <span>
             Don't have an account?{" "}
             <Link className="text-blue-500 underline" href="/register">
               Sign up
             </Link>
           </span>
-          <button type="submit" className="bg-blue-300 p-2 px-4 rounded">
+          <button
+            type="submit"
+            className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded transition-all duration-200"
+          >
             Login
           </button>
         </div>

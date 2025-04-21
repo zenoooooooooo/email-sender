@@ -1,14 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiLogOut, FiMenu, FiX } from "react-icons/fi";
 
-interface NavProps {
-  name: string;
-}
 
-const Nav: React.FC<NavProps> = ({ name }) => {
+const Nav = () => {
   const router = useRouter();
   function handleLogout() {
     localStorage.removeItem("token");
@@ -20,6 +17,40 @@ const Nav: React.FC<NavProps> = ({ name }) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const [name, setName] = useState("");
+  
+  useEffect(() => {
+    const validateToken = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/protected-route", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Invalid or expired token");
+        }
+
+        const data = await response.json();
+        setName(data.user.name);
+      } catch (err) {
+        console.error("Token validation failed:", err);
+        localStorage.removeItem("token");
+        router.push("/login");
+      }
+    };
+
+    validateToken();
+  }, [router]);
 
   return (
     <nav className="bg-gray-800 text-white p-4">
