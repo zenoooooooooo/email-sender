@@ -1,28 +1,46 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Nav from "./components/Nav";
+
 export default function Home() {
   const router = useRouter();
-  async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    try {
-      const response = await fetch("api/welcomeEmail", {
-        method: "POST",
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
+  const [name, setName] = useState("");
   useEffect(() => {
-    router.push("/login");
-  }, []);
+    const validateToken = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/protected-route", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Invalid or expired token");
+        }
+
+        const data = await response.json();
+        setName(data.user.name);
+      } catch (err) {
+        console.error("Token validation failed:", err);
+        localStorage.removeItem("token");
+        router.push("/login");
+      }
+    };
+
+    validateToken();
+  }, [router]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <button onClick={handleClick}>click</button>
-    </main>
+    <>
+      <Nav name={name} />
+    </>
   );
 }

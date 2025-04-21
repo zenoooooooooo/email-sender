@@ -2,6 +2,10 @@ import { Schema, model, models } from "mongoose";
 
 const EmailHistorySchema = new Schema<IEmailHistory>(
   {
+    user: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
       enum: [

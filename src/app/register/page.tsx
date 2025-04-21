@@ -34,10 +34,7 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const { trigger, isMutating } = useSWRMutation(
-    "api/register",
-    registerUser
-  );
+  const { trigger, isMutating } = useSWRMutation("api/register", registerUser);
 
   async function onSubmit(data: RegisterFormValues) {
     try {
