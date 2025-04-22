@@ -2,7 +2,7 @@ import InterviewInvitation from "@/app/components/templates/InterviewInvitation"
 import { render } from "@react-email/components";
 import nodemailer from "nodemailer";
 import { EmailHistory } from "@/backend/models";
-
+import { IInterviewInvitation } from "@/types/IInterviewInvitation";
 export default async function sendInterviewInvitation(
   data: IInterviewInvitation,
   user: string

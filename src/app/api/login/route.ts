@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/backend/db/dbConnection";
 import { loginUser } from "@/backend/controllers";
+import { IUser } from "@/types/IUser";
 
 export async function POST(req: NextRequest) {
   try {

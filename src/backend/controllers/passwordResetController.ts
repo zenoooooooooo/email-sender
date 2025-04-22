@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import { render } from "@react-email/render";
 import PasswordReset from "@/app/components/templates/PasswordReset";
 import { EmailHistory } from "@/backend/models";
-
+import { IPasswordReset } from "@/types/IPasswordReset";
 export default async function sendPasswordReset(data: IPasswordReset, user: string) {
   try {
     const SMTP_USER = process.env.SMTP_USER;

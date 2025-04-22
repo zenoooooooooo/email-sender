@@ -1,5 +1,6 @@
 import { User } from "@/backend/models";
 import bcrypt from "bcrypt";
+import { IUser } from "@/types/IUser";
 export default async function registerUser(data: IUser) {
   try {
     const { name, email, password } = data;

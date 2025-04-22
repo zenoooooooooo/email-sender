@@ -1,6 +1,7 @@
 import { User } from "@/backend/models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { IUser } from "@/types/IUser";
 export default async function loginUser(data: Omit<IUser, "name">) {
   try {
     const { email, password } = data;

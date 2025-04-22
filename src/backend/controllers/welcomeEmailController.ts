@@ -2,7 +2,7 @@ import { render } from "@react-email/components";
 import nodemailer from "nodemailer";
 import WelcomeEmail from "@/app/components/templates/WelcomeEmail";
 import { EmailHistory } from "@/backend/models";
-
+import { IWelcomeEmail } from "@/types/IWelcomeEmail";
 export default async function sendWelcomeEmail(
   data: IWelcomeEmail,
   user: string

@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-
+import { IEmailHistory } from "@/types/IEmailHistory";
 const EmailHistorySchema = new Schema<IEmailHistory>(
   {
     user: {
