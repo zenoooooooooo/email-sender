@@ -1,8 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Nav from "./components/Nav";
-import Link from "next/link";
 import Card from "./components/Card";
 
 export default function Home() {
@@ -16,7 +13,7 @@ export default function Home() {
           title="Welcome Email"
           description="Send a welcome email to new users with their login details."
           tags={["Recipients", "Name", "Email", "Login Link"]}
-          link="/welcome-email-form"
+          link="/welcomeEmailPage"
         />
         <Card
           title="Interview Invitation"

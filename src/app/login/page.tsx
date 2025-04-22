@@ -96,7 +96,7 @@ const Login = () => {
             type="submit"
             className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded transition-all duration-200"
           >
-            Login
+            {isMutating ? "Logging in..." : "Login"}
           </button>
         </div>
       </form>

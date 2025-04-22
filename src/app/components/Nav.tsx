@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiLogOut, FiMenu, FiX } from "react-icons/fi";
 
-
 const Nav = () => {
   const router = useRouter();
   function handleLogout() {
@@ -19,7 +18,7 @@ const Nav = () => {
   };
 
   const [name, setName] = useState("");
-  
+
   useEffect(() => {
     const validateToken = async () => {
       const token = localStorage.getItem("token");
@@ -41,7 +40,7 @@ const Nav = () => {
         }
 
         const data = await response.json();
-        setName(data.user.name);
+        setName(data.user.email);
       } catch (err) {
         console.error("Token validation failed:", err);
         localStorage.removeItem("token");
@@ -53,7 +52,7 @@ const Nav = () => {
   }, [router]);
 
   return (
-    <nav className="bg-gray-800 text-white p-4">
+    <nav className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <ul className="hidden md:flex items-center space-x-4">
           <li className="group desktop:text-[20px] tablet:text-[16px] p-2">

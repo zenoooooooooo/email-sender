@@ -3,7 +3,10 @@ import nodemailer from "nodemailer";
 import WelcomeEmail from "@/app/components/templates/WelcomeEmail";
 import { EmailHistory } from "@/backend/models";
 
-export default async function sendWelcomeEmail(data: IWelcomeEmail) {
+export default async function sendWelcomeEmail(
+  data: IWelcomeEmail,
+  user: string
+) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -46,6 +49,7 @@ export default async function sendWelcomeEmail(data: IWelcomeEmail) {
     await transporter.sendMail(mailOptions);
 
     const emailHistory = new EmailHistory({
+      user,
       type: "welcomeEmail",
       recipients,
       name,
