@@ -10,7 +10,6 @@ export interface IInterviewInvitation extends IEmail {
   contactMethod: string;
   contactLink: string;
   departmentName: string;
-  logoLink: string;
   contactPhone: string;
   contactEmail: string;
 }

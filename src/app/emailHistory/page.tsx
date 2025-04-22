@@ -3,7 +3,6 @@
 import React from "react";
 import useSWR from "swr";
 import Nav from "../components/Nav";
-import Image from "next/image";
 import { IEmailHistory } from "@/types/IEmailHistory";
 
 const fetcherWithToken = async (url: string) => {
@@ -96,13 +95,7 @@ const EmailHistory = () => {
                 {payload.contactLink}
               </a>
             </p>
-            {payload.logoLink && (
-              <Image
-                src={payload.logoLink}
-                alt="Logo"
-                className="col-span-2 max-w-[150px] mt-2"
-              />
-            )}
+
           </div>
         );
       case "newsLetter":

@@ -31,7 +31,6 @@ export default function Home() {
               "Contact Method",
               "Contact Link",
               "Department Name",
-              "Logo Link",
               "Contact Phone",
               "Contact Email",
             ]}

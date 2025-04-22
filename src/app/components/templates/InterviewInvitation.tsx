@@ -4,7 +4,6 @@ import {
   Tailwind,
   Text,
   Section,
-  Img,
 } from "@react-email/components";
 import * as React from "react";
 
@@ -22,7 +21,6 @@ export default function InterviewInvitation({
   contactMethod,
   contactLink,
   departmentName,
-  logoLink,
   contactPhone,
   contactEmail,
 }: Omit<IInterviewInvitation, "recipients">) {
@@ -46,15 +44,6 @@ export default function InterviewInvitation({
     >
       <Section className="bg-background  bg-white flex items-center rounded-md justify-center p-6">
         <Container className="max-w-auto rounded-xl p-8 text-grayDark font-sans text-base">
-          {logoLink && (
-            <div className="text-center mb-6">
-              <Img
-                src={logoLink}
-                alt={`${company} logo`}
-                className="mx-auto h-12"
-              />
-            </div>
-          )}
 
           <h1 className="text-2xl font-semibold mb-2">Interview Invitation</h1>
           <Text className="text-grayLight mb-4">

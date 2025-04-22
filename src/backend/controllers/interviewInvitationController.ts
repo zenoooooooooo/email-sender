@@ -26,7 +26,6 @@ export default async function sendInterviewInvitation(
       contactMethod,
       contactLink,
       departmentName,
-      logoLink,
       contactPhone,
       contactEmail,
     } = data;
@@ -53,7 +52,6 @@ export default async function sendInterviewInvitation(
       contactMethod,
       contactLink,
       departmentName,
-      logoLink,
       contactPhone,
       contactEmail,
     });
@@ -95,7 +93,6 @@ export default async function sendInterviewInvitation(
         contactMethod,
         contactLink,
         departmentName,
-        logoLink,
         contactPhone,
         contactEmail,
       },

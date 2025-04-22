@@ -31,7 +31,6 @@ export const interviewInvitationSchema = z.object({
     .string()
     .nonempty({ message: "Must be a valid email or telephone number" }),
   departmentName: z.string().min(1, { message: "Department name required" }),
-  logoLink: z.string().url({ message: "Must be a valid URL" }),
   contactPhone: z.string().min(1, { message: "Contact phone required" }),
   contactEmail: z.string().email({ message: "Invalid contact email" }),
 });

@@ -73,7 +73,6 @@ const InterviewInvitationPage = () => {
     contactMethod: "email",
     contactLink: "",
     departmentName: "",
-    logoLink: "",
     contactPhone: "",
     contactEmail: "",
   });
@@ -115,18 +114,9 @@ const InterviewInvitationPage = () => {
       toast.error("Failed to send email.");
     }
   };
-
-  const normalizeUrl = (url: string) =>
-    !/^https?:\/\//i.test(url) ? `https://${url}` : url;
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-
+  const handleChange = () => {
     setEmailData((prevData) => ({
       ...prevData,
-      [name]: ["logoLink"].includes(name) ? normalizeUrl(value) : value,
     }));
   };
 
@@ -322,20 +312,6 @@ const InterviewInvitationPage = () => {
               {errors.departmentName && (
                 <span className="text-red-500 text-sm">
                   {errors.departmentName.message}
-                </span>
-              )}
-
-              <input
-                {...register("logoLink")}
-                name="logoLink"
-                placeholder="Logo Link"
-                value={emailData.logoLink}
-                onChange={handleChange}
-                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
-              />
-              {errors.logoLink && (
-                <span className="text-red-500 text-sm">
-                  {errors.logoLink.message}
                 </span>
               )}
 
