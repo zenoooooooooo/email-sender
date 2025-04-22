@@ -7,6 +7,7 @@ import { welcomeEmailSchema } from "@/validations/welcomeEmail";
 import WelcomeEmail from "../components/templates/WelcomeEmail";
 import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 async function sendWelcomeEmail(url: string, { arg }: { arg: IWelcomeEmail }) {
   const res = await fetch(url, {
@@ -68,6 +69,7 @@ const WelcomeEmailPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(welcomeEmailSchema),
@@ -92,9 +94,14 @@ const WelcomeEmailPage = () => {
 
     try {
       const result = await trigger(payload);
+
+      toast.success("Email sent successfully!");
       console.log("Email sent successfully: ", result);
-    } catch (error) {
+
+      reset();
+    } catch (error: any) {
       console.error("Error sending email: ", error);
+      toast.error(error.message || "Failed to send email.");
     }
   };
 
@@ -201,7 +208,7 @@ const WelcomeEmailPage = () => {
             className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded transition-all duration-200 mt-4"
             disabled={isMutating}
           >
-            Send Email
+            {isMutating ? "Sending..." : "Send Email"}
           </button>
         </form>
       </main>

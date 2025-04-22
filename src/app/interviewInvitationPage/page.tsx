@@ -7,6 +7,7 @@ import { interviewInvitationSchema } from "@/validations/interviewInvitation";
 import InterviewInvitationTemplate from "../components/templates/InterviewInvitation";
 import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 async function sendInterviewInvitation(
   url: string,
@@ -68,7 +69,7 @@ const InterviewInvitationPage = () => {
     interviewTime: "",
     interviewLocation: "",
     interviewNotes: "",
-    contactMethod: "email", // Default to email
+    contactMethod: "email",
     contactLink: "",
     departmentName: "",
     logoLink: "",
@@ -79,6 +80,7 @@ const InterviewInvitationPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(interviewInvitationSchema),
@@ -104,9 +106,12 @@ const InterviewInvitationPage = () => {
 
     try {
       const result = await trigger(payload);
+      toast.success("Email sent successfully!");
       console.log("Interview email sent successfully:", result);
-    } catch (error) {
+      reset();
+    } catch (error: any) {
       console.error("Error sending interview email:", error);
+      toast.error(error.message || "Failed to send email.");
     }
   };
 
@@ -120,9 +125,7 @@ const InterviewInvitationPage = () => {
 
     setEmailData((prevData) => ({
       ...prevData,
-      [name]: ["contactLink", "logoLink"].includes(name)
-        ? normalizeUrl(value)
-        : value,
+      [name]: ["logoLink"].includes(name) ? normalizeUrl(value) : value,
     }));
   };
 
@@ -146,7 +149,6 @@ const InterviewInvitationPage = () => {
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Left Column - Primary Details */}
             <div className="flex flex-col gap-4">
               <input
                 {...register("recipients")}
@@ -154,7 +156,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Recipients (comma separated)"
                 value={emailData.recipients}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.recipients && (
                 <span className="text-red-500 text-sm">
@@ -168,7 +170,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Your Name"
                 value={emailData.name}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.name && (
                 <span className="text-red-500 text-sm">
@@ -182,7 +184,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Position"
                 value={emailData.position}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.position && (
                 <span className="text-red-500 text-sm">
@@ -196,7 +198,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Company"
                 value={emailData.company}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.company && (
                 <span className="text-red-500 text-sm">
@@ -210,7 +212,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Company Description"
                 value={emailData.companyDescription}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.companyDescription && (
                 <span className="text-red-500 text-sm">
@@ -219,7 +221,6 @@ const InterviewInvitationPage = () => {
               )}
             </div>
 
-            {/* Right Column - Interview Details */}
             <div className="flex flex-col gap-4">
               <input
                 {...register("interviewDate")}
@@ -227,7 +228,7 @@ const InterviewInvitationPage = () => {
                 type="date"
                 value={emailData.interviewDate}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.interviewDate && (
                 <span className="text-red-500 text-sm">
@@ -241,7 +242,7 @@ const InterviewInvitationPage = () => {
                 type="time"
                 value={emailData.interviewTime}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.interviewTime && (
                 <span className="text-red-500 text-sm">
@@ -255,7 +256,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Interview Location"
                 value={emailData.interviewLocation}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.interviewLocation && (
                 <span className="text-red-500 text-sm">
@@ -269,7 +270,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Interview Notes"
                 value={emailData.interviewNotes}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.interviewNotes && (
                 <span className="text-red-500 text-sm">
@@ -282,7 +283,7 @@ const InterviewInvitationPage = () => {
                 name="contactMethod"
                 value={emailData.contactMethod}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               >
                 <option value="email">Email</option>
                 <option value="phone">Phone</option>
@@ -294,7 +295,6 @@ const InterviewInvitationPage = () => {
               )}
             </div>
 
-            {/* Bottom Row - Optional Info */}
             <div className="col-span-full grid md:grid-cols-2 gap-4">
               <input
                 {...register("contactLink")}
@@ -302,7 +302,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Contact Link"
                 value={emailData.contactLink}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.contactLink && (
                 <span className="text-red-500 text-sm">
@@ -316,7 +316,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Department Name"
                 value={emailData.departmentName}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.departmentName && (
                 <span className="text-red-500 text-sm">
@@ -330,7 +330,7 @@ const InterviewInvitationPage = () => {
                 placeholder="Logo Link"
                 value={emailData.logoLink}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.logoLink && (
                 <span className="text-red-500 text-sm">
@@ -345,7 +345,7 @@ const InterviewInvitationPage = () => {
                 type="tel"
                 value={emailData.contactPhone}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.contactPhone && (
                 <span className="text-red-500 text-sm">
@@ -360,7 +360,7 @@ const InterviewInvitationPage = () => {
                 type="email"
                 value={emailData.contactEmail}
                 onChange={handleChange}
-                  className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
+                className="p-3 border rounded w-full mb-2 outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.contactEmail && (
                 <span className="text-red-500 text-sm">
@@ -374,10 +374,11 @@ const InterviewInvitationPage = () => {
             type="submit"
             className="mt-6 bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded block mx-auto"
           >
-            {isMutating ? "Sending..." : "Send Invitation"}
+            {isMutating ? "Sending..." : "Send Email"}
           </button>
         </form>
       </main>
+
     </div>
   );
 };

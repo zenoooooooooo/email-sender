@@ -87,7 +87,13 @@ export default function InterviewInvitation({
 
           <div className="text-center my-6">
             <Button
-              href={contactLink}
+              href={
+                contactMethod === "email"
+                  ? `mailto:${contactLink}`
+                  : contactMethod === "phone"
+                    ? `tel:${contactLink}`
+                    : contactLink
+              }
               className="bg-brand hover:opacity-90 px-6 py-3 font-medium text-white text-sm rounded-md transition duration-300"
             >
               {contactMethod === "email"
@@ -102,7 +108,7 @@ export default function InterviewInvitation({
             If you have any questions, feel free to contact us at{" "}
             <a href={`mailto:${contactEmail}`} className="text-brand">
               {contactEmail}
-            </a>
+            </a>{" "}
             or call us at{" "}
             <a href={`tel:${contactPhone}`} className="text-brand">
               {contactPhone}

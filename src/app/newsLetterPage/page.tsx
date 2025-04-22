@@ -9,6 +9,7 @@ import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
 import { months } from "@/enums/months";
 import { INewsLetter } from "@/types/INewsLetter";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 async function sendNewsLetter(
   url: string,
@@ -73,6 +74,7 @@ const NewsLetterPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(newsletterSchema),
@@ -98,9 +100,12 @@ const NewsLetterPage = () => {
 
     try {
       const result = await trigger(payload);
+      toast.success("Email sent successfully!");
       console.log("Newsletter sent successfully:", result);
-    } catch (error) {
+      reset();
+    } catch (error: any) {
       console.error("Error sending newsletter:", error);
+      toast.error(error.message || "Failed to send email.");
     }
   };
 
@@ -248,7 +253,7 @@ const NewsLetterPage = () => {
             className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded mt-4"
             disabled={isMutating}
           >
-            Send Newsletter
+            {isMutating ? "Sending..." : "Send Email"}
           </button>
         </form>
       </main>

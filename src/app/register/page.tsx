@@ -6,6 +6,7 @@ import { RegisterFormValues, registerSchema } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSWRMutation from "swr/mutation";
 import { useRouter } from "next/navigation";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 async function registerUser(url: string, { arg }: { arg: IUser }) {
   const res = await fetch(url, {
@@ -39,10 +40,12 @@ const Register = () => {
   async function onSubmit(data: RegisterFormValues) {
     try {
       const result = await trigger(data);
+      toast.success("Registered account successfully!");
       console.log("Registration Success: " + result);
       router.push("/login");
     } catch (error) {
       console.error(error);
+      toast.success("Error registering account!");
     }
   }
 
@@ -123,6 +126,7 @@ const Register = () => {
           </button>
         </div>
       </form>
+
     </main>
   );
 };

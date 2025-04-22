@@ -7,8 +7,12 @@ import { passwordResetSchema } from "@/validations/passwordReset";
 import PasswordReset from "../components/templates/PasswordReset";
 import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
-async function sendPasswordResetEmail(url: string, { arg }: { arg: IPasswordReset }) {
+async function sendPasswordResetEmail(
+  url: string,
+  { arg }: { arg: IPasswordReset }
+) {
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -67,6 +71,7 @@ const PasswordResetPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(passwordResetSchema),
@@ -92,9 +97,12 @@ const PasswordResetPage = () => {
 
     try {
       const result = await trigger(payload);
+      toast.success("Email sent successfully!");
       console.log("Email sent successfully: ", result);
-    } catch (error) {
+      reset();
+    } catch (error: any) {
       console.error("Error sending email: ", error);
+      toast.error(error.message || "Failed to send email.");
     }
   };
 
@@ -185,10 +193,11 @@ const PasswordResetPage = () => {
             className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded transition-all duration-200 mt-4"
             disabled={isMutating}
           >
-            Send Email
+            {isMutating ? "Sending..." : "Send Email"}
           </button>
         </form>
       </main>
+
     </div>
   );
 };

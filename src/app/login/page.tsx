@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { LoginFormValues, loginSchema } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSWRMutation from "swr/mutation";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 async function loginUser(url: string, { arg }: { arg: Omit<IUser, "name"> }) {
   const res = await fetch(url, {
@@ -39,11 +40,13 @@ const Login = () => {
   async function onSubmit(data: LoginFormValues) {
     try {
       const result = await trigger(data);
+      toast.success("Logged in successfully!");
       console.log("Login Success: " + result);
       localStorage.setItem("token", result.token);
       router.push("/");
     } catch (error) {
       console.error(error);
+      toast.error("Error logging in!");
     }
   }
 
@@ -100,6 +103,7 @@ const Login = () => {
           </button>
         </div>
       </form>
+
     </main>
   );
 };

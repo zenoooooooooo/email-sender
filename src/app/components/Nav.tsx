@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import { FiLogOut, FiMenu } from "react-icons/fi";
 
 const Nav = () => {
   const router = useRouter();
@@ -60,7 +60,7 @@ const Nav = () => {
             <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
           </li>
           <li className="group desktop:text-[20px] tablet:text-[16px] p-2">
-            <Link href="/">History</Link>
+            <Link href="/emailHistory">History</Link>
             <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
           </li>
         </ul>
@@ -77,7 +77,7 @@ const Nav = () => {
               <Link href="/">Dashboard</Link>
             </li>
             <li>
-              <Link href="/">History</Link>
+              <Link href="/emailHistory">History</Link>
             </li>
           </ul>
         )}
