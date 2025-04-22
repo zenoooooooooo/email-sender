@@ -9,7 +9,7 @@ import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
 import { months } from "@/enums/months";
 import { INewsLetter } from "@/types/INewsLetter";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 async function sendNewsLetter(
   url: string,
@@ -103,9 +103,9 @@ const NewsLetterPage = () => {
       toast.success("Email sent successfully!");
       console.log("Newsletter sent successfully:", result);
       reset();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error sending newsletter:", error);
-      toast.error(error.message || "Failed to send email.");
+      toast.error("Failed to send email.");
     }
   };
 

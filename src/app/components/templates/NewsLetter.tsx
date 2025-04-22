@@ -1,4 +1,4 @@
-import { Html, Tailwind, Container, Section } from "@react-email/components";
+import { Tailwind, Container, Section } from "@react-email/components";
 import * as React from "react";
 import { INewsLetter } from "@/types/INewsLetter";
 

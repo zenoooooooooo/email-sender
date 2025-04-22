@@ -1,5 +1,5 @@
+import { IPasswordReset } from "@/types/IPasswordReset";
 import {
-  Html,
   Tailwind,
   Container,
   Button,

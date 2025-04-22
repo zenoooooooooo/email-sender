@@ -1,13 +1,14 @@
 import {
   Button,
   Container,
-  Html,
   Tailwind,
   Text,
   Section,
   Img,
 } from "@react-email/components";
 import * as React from "react";
+
+import { IInterviewInvitation } from "@/types/IInterviewInvitation";
 
 export default function InterviewInvitation({
   name,

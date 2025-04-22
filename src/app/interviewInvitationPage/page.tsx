@@ -7,7 +7,8 @@ import { interviewInvitationSchema } from "@/validations/interviewInvitation";
 import InterviewInvitationTemplate from "../components/templates/InterviewInvitation";
 import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { IInterviewInvitation } from "@/types/IInterviewInvitation";
 
 async function sendInterviewInvitation(
   url: string,
@@ -109,9 +110,9 @@ const InterviewInvitationPage = () => {
       toast.success("Email sent successfully!");
       console.log("Interview email sent successfully:", result);
       reset();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error sending interview email:", error);
-      toast.error(error.message || "Failed to send email.");
+      toast.error("Failed to send email.");
     }
   };
 
@@ -378,7 +379,6 @@ const InterviewInvitationPage = () => {
           </button>
         </form>
       </main>
-
     </div>
   );
 };

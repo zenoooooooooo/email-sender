@@ -7,8 +7,8 @@ import { passwordResetSchema } from "@/validations/passwordReset";
 import PasswordReset from "../components/templates/PasswordReset";
 import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
-import { Slide, toast, ToastContainer } from "react-toastify";
-
+import {  toast } from "react-toastify";
+import { IPasswordReset } from "@/types/IPasswordReset";
 async function sendPasswordResetEmail(
   url: string,
   { arg }: { arg: IPasswordReset }
@@ -100,9 +100,9 @@ const PasswordResetPage = () => {
       toast.success("Email sent successfully!");
       console.log("Email sent successfully: ", result);
       reset();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error sending email: ", error);
-      toast.error(error.message || "Failed to send email.");
+      toast.error("Failed to send email.");
     }
   };
 

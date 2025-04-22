@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { LoginFormValues, loginSchema } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSWRMutation from "swr/mutation";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import {  toast } from "react-toastify";
+import { IUser } from "@/types/IUser";
 
 async function loginUser(url: string, { arg }: { arg: Omit<IUser, "name"> }) {
   const res = await fetch(url, {
@@ -90,7 +91,7 @@ const Login = () => {
 
         <div className="mt-4 flex justify-between items-center text-sm text-gray-700">
           <span>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link className="text-blue-500 underline" href="/register">
               Sign up
             </Link>

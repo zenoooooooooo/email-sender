@@ -1,4 +1,5 @@
-interface IInterviewInvitation extends IEmail {
+import { IEmail } from "./IEmail";
+export interface IInterviewInvitation extends IEmail {
   position: string;
   company: string;
   companyDescription: string;

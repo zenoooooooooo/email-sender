@@ -1,11 +1,11 @@
 import {
   Button,
   Container,
-  Html,
   Tailwind,
   Text,
   Section,
 } from "@react-email/components";
+import { IWelcomeEmail } from "@/types/IWelcomeEmail";
 import * as React from "react";
 
 export default function WelcomeEmail({

@@ -6,8 +6,8 @@ import { RegisterFormValues, registerSchema } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSWRMutation from "swr/mutation";
 import { useRouter } from "next/navigation";
-import { Slide, toast, ToastContainer } from "react-toastify";
-
+import { toast } from "react-toastify";
+import { IUser } from "@/types/IUser";
 async function registerUser(url: string, { arg }: { arg: IUser }) {
   const res = await fetch(url, {
     method: "POST",

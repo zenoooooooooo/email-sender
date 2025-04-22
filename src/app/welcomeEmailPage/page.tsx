@@ -7,7 +7,8 @@ import { welcomeEmailSchema } from "@/validations/welcomeEmail";
 import WelcomeEmail from "../components/templates/WelcomeEmail";
 import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { IWelcomeEmail } from "@/types/IWelcomeEmail";
 
 async function sendWelcomeEmail(url: string, { arg }: { arg: IWelcomeEmail }) {
   const res = await fetch(url, {
@@ -99,9 +100,9 @@ const WelcomeEmailPage = () => {
       console.log("Email sent successfully: ", result);
 
       reset();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error sending email: ", error);
-      toast.error(error.message || "Failed to send email.");
+      toast.error("Failed to send email.");
     }
   };
 

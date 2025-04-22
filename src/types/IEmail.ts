@@ -1,4 +1,4 @@
-interface IEmail {
+export interface IEmail {
     recipients: string[];
     name: string;
 }
