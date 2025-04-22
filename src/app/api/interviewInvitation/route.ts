@@ -5,9 +5,9 @@ import { sendInterviewInvitation } from "@/backend/controllers";
 export async function POST(req: NextRequest) {
   try {
     connectToDatabase();
-    const data: IInterviewInvitation = await req.json();
-
-    const { message, status } = await sendInterviewInvitation(data);
+    const data = await req.json();
+    const user = data.user;
+    const { message, status } = await sendInterviewInvitation(data, user);
 
     return NextResponse.json({ message }, { status });
   } catch (error) {

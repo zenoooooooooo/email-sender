@@ -6,9 +6,10 @@ export async function POST(req: NextRequest) {
   try {
     connectToDatabase();
 
-    const data: IPasswordReset = await req.json();
+    const data = await req.json();
+    const user = data.user;
 
-    const { message, status } = await sendPasswordReset(data);
+    const { message, status } = await sendPasswordReset(data, user);
 
     return NextResponse.json({ message }, { status });
   } catch (error) {

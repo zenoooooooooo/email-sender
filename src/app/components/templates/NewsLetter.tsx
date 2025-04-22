@@ -1,5 +1,6 @@
-import { Html, Tailwind, Container } from "@react-email/components";
+import { Html, Tailwind, Container, Section } from "@react-email/components";
 import * as React from "react";
+import { INewsLetter } from "@/types/INewsLetter";
 
 export default function Newsletter({
   name,
@@ -10,24 +11,24 @@ export default function Newsletter({
   author,
 }: Omit<INewsLetter, "recipients">) {
   return (
-    <Html>
-      <Tailwind
-        config={{
-          theme: {
-            extend: {
-              colors: {
-                brand: "#0D6EFD",
-                textPrimary: "#1f2937",
-                textSecondary: "#6b7280",
-              },
-              fontFamily: {
-                sans: ["Segoe UI", "Helvetica", "Arial", "sans-serif"],
-              },
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              brand: "#0D6EFD",
+              textPrimary: "#1f2937",
+              textSecondary: "#6b7280",
+            },
+            fontFamily: {
+              sans: ["Segoe UI", "Helvetica", "Arial", "sans-serif"],
             },
           },
-        }}
-      >
-        <Container className="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto font-sans">
+        },
+      }}
+    >
+      <Section className="bg-background  bg-white flex items-center rounded-md justify-center p-6">
+        <Container className="max-w-auto rounded-xl p-8 text-grayDark font-sans text-base">
           <h1 className="text-brand text-3xl font-bold mb-1">
             Monthly Newsletter - {month}
           </h1>
@@ -44,9 +45,9 @@ export default function Newsletter({
           <hr className="my-6" />
 
           <p className="text-xs text-textSecondary text-center">
-            You&apos;re receiving this newsletter because you subscribed to updates
-            from <strong>{name}</strong>. If you no longer wish to receive these
-            emails, you can{" "}
+            You&apos;re receiving this newsletter because you subscribed to
+            updates from <strong>{name}</strong>. If you no longer wish to
+            receive these emails, you can{" "}
             <a
               href={unsubscribeLink}
               className="text-brand underline"
@@ -58,7 +59,7 @@ export default function Newsletter({
             .
           </p>
         </Container>
-      </Tailwind>
-    </Html>
+      </Section>
+    </Tailwind>
   );
 }

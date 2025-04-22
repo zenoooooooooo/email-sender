@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import { render } from "@react-email/components";
 import NewsLetter from "@/app/components/templates/NewsLetter";
 import { EmailHistory } from "@/backend/models";
-export default async function sendNewsLetter(data: INewsLetter) {
+export default async function sendNewsLetter(data: INewsLetter, user: string) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -60,6 +60,7 @@ export default async function sendNewsLetter(data: INewsLetter) {
     await transporter.sendMail(mailOptions);
 
     const emailHistory = new EmailHistory({
+      user,
       type: "newsLetter",
       recipients,
       name,

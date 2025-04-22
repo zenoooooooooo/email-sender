@@ -40,7 +40,7 @@ const Nav = () => {
         }
 
         const data = await response.json();
-        setName(data.user.email);
+        setName(data.user.name);
       } catch (err) {
         console.error("Token validation failed:", err);
         localStorage.removeItem("token");

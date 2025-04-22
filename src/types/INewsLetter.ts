@@ -1,18 +1,6 @@
-enum months {
-  JANUARY,
-  FEBRUARY,
-  MARCH,
-  APRIL,
-  MAY,
-  JUNE,
-  JULY,
-  AUGUST,
-  SEPTEMBER,
-  OCTOBER,
-  NOVEMBER,
-}
+import { months } from "@/enums/months";
 
-interface INewsLetter extends IEmail {
+export interface INewsLetter extends IEmail {
   month: months;
   headline: string;
   content: string;

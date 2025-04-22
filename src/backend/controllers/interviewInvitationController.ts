@@ -4,7 +4,8 @@ import nodemailer from "nodemailer";
 import { EmailHistory } from "@/backend/models";
 
 export default async function sendInterviewInvitation(
-  data: IInterviewInvitation
+  data: IInterviewInvitation,
+  user: string
 ) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
@@ -79,6 +80,7 @@ export default async function sendInterviewInvitation(
     await transporter.sendMail(mailOptions);
 
     const emailHistory = new EmailHistory({
+      user,
       type: "interviewInvitation",
       recipients,
       name,

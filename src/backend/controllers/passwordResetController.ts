@@ -3,7 +3,7 @@ import { render } from "@react-email/render";
 import PasswordReset from "@/app/components/templates/PasswordReset";
 import { EmailHistory } from "@/backend/models";
 
-export default async function sendPasswordReset(data: IPasswordReset) {
+export default async function sendPasswordReset(data: IPasswordReset, user: string) {
   try {
     const SMTP_USER = process.env.SMTP_USER;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -46,6 +46,7 @@ export default async function sendPasswordReset(data: IPasswordReset) {
     await transporter.sendMail(mailOptions);
 
     const emailHistory = new EmailHistory({
+      user,
       type: "passwordReset",
       recipients,
       name,

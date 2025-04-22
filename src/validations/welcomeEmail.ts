@@ -32,4 +32,3 @@ export const welcomeEmailSchema = z.object({
     .nonempty({ message: "Login link is required" }),
 });
 
-export type WelcomeEmailFormValues = z.infer<typeof welcomeEmailSchema>;

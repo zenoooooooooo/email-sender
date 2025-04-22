@@ -5,9 +5,10 @@ import { sendNewsLetter } from "@/backend/controllers";
 export async function POST(req: NextRequest) {
   try {
     connectToDatabase();
-    const data: INewsLetter = await req.json();
-
-    const { message, status } = await sendNewsLetter(data);
+    const data = await req.json();
+    const user = data.user;
+    
+    const { message, status } = await sendNewsLetter(data, user);
     return NextResponse.json({ message }, { status });
   } catch (error) {
     console.error(error);
